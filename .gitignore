@@ -1,0 +1,64 @@
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Python virtual environments and build artifacts
+.venv/
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# JavaScript and frontend dependencies/build output
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+.pnp.*
+.vite/
+
+# Database files and local database data
+*.sqlite
+*.sqlite3
+*.db
+data/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+
+# Secrets and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editor and operating-system files
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+.#*
