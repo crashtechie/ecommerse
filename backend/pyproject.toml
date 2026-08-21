@@ -19,3 +19,29 @@ dev = [
     "pytest-cov>=7.1.0",
     "pytest-django>=4.14.0",
 ]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["test_*.py"]
+
+[tool.bandit]
+exclude_dirs = [".venv", "migrations", "tests"]
+skips = ["B101", "B104", "B311"]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | migrations
+)\n'''
