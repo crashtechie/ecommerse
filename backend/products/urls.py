@@ -1,6 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ProductViewSet, HealthCheckViewSet, CustomerViewSet, OrderViewSet
+from .views import (
+    CustomerViewSet,
+    HealthCheckViewSet,
+    OrderViewSet,
+    ProductViewSet,
+    readiness_check,
+)
 
 router = DefaultRouter()
 router.register(r'products', ProductViewSet, basename='product')
@@ -10,5 +16,6 @@ router.register(r'orders', OrderViewSet, basename='order')
 
 # configure your urls below
 urlpatterns = [
+    path('ready/', readiness_check, name='readiness-check'),
     path('', include(router.urls)),
 ]

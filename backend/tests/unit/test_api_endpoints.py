@@ -1,8 +1,10 @@
 from decimal import Decimal
 
 import pytest
+from django.db import DatabaseError
 from rest_framework import status
 from rest_framework.test import APIClient
+from unittest.mock import patch
 
 from products.models import Customer, Order, Product
 
@@ -18,6 +20,25 @@ def test_health_check_endpoint(api_client):
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data == {"status": "ok"}
+
+
+@pytest.mark.django_db
+def test_readiness_check_endpoint_verifies_database(api_client):
+    response = api_client.get("/api/ready/")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == {"status": "ready"}
+
+
+@pytest.mark.django_db
+def test_readiness_check_endpoint_returns_service_unavailable_when_database_fails(
+    api_client,
+):
+    with patch("products.views.connection.cursor", side_effect=DatabaseError):
+        response = api_client.get("/api/ready/")
+
+    assert response.status_code == status.HTTP_503_SERVICE_UNAVAILABLE
+    assert response.data == {"status": "unready"}
 
 
 @pytest.mark.django_db
